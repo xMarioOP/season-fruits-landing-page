@@ -4,7 +4,7 @@ This project is a web application developed with **React and Vite**, consuming t
 
 ## Live Demo
 
-You can view the live demo of the project at [this link](https://github.com/xMarioOP/season-fruits-landing-page).
+You can view the live demo of the project at [this link](https://xMarioOP.github.io/season-fruits-landing-page/).
 
 ## Technologies Used  
 
