@@ -1,4 +1,4 @@
-# Technical Test - Fruit Listing  
+# Season fruits - Landing page
 
 This project is a web application developed with **React and Vite**, consuming the **Fruityvice API** to display information about different fruits. Local images for each fruit are included, with a fallback image in case a specific fruit image is unavailable.  
 
@@ -87,16 +87,17 @@ If the backend blocks requests due to CORS, make sure to configure a proxy in vi
 📌 Example of proxy configuration in vite.config.js:
 
 ```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
 export default defineConfig({
+  plugins: [react()],
   server: {
     proxy: {
-      "/api": {
-        target: "https://www.fruityvice.com",
-        changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
-  },
-});
+      '/api': 'https://www.fruityvice.com',
+    }
+  }
+})
+
 ```
