@@ -11,9 +11,11 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [filters, setFilters] = useState({
     search: "",
+    filterBy: "",
     family: "",
-    order: "asc",
     genus: "",
+    order: "",
+    orderAZ: "asc",
   })
 
   useEffect(() => {
@@ -38,34 +40,26 @@ function App() {
   const getUniqueValues = (data, key) => {
     return [...new Set(data.map(item => item[key]))]
   };
-
-
   const uniqueFamilies = useMemo(() => getUniqueValues(fruits, "family"), [fruits])
   const uniqueGenus = useMemo(() => getUniqueValues(fruits, "genus"), [fruits])
   const uniqueOrders = useMemo(() => getUniqueValues(fruits, "order"), [fruits])
 
-
-  // Calcular los frutos filtrados cada vez que cambian 'fruits' o 'filters'
   const filteredFruits = useMemo(() => {
     let filtered = [...fruits]
 
     if (filters.search) {
-      filtered = filtered.filter(fruit =>
+      filtered = filtered.filter(fruit => 
         fruit.name.toLowerCase().includes(filters.search.toLowerCase())
       )
-    }
-
-    if (filters.family) {
+    } else if (filters.family && filters.filterBy === "family") {
       filtered = filtered.filter(fruit => fruit.family === filters.family)
-    }
-
-    if (filters.genus) {
+    } else if (filters.genus && filters.filterBy === "genus") {
       filtered = filtered.filter(fruit => fruit.genus === filters.genus)
-    }
-
-    if (filters.order) {
+    } else if (filters.order && filters.filterBy === "order") {
+      filtered = filtered.filter(fruit => fruit.order === filters.order)
+    } else if (filters.orderAZ) {
       filtered = filtered.sort((a, b) =>
-        filters.order === 'asc'
+        filters.orderAZ === 'asc'
           ? a.name.localeCompare(b.name)
           : b.name.localeCompare(a.name)
       )
@@ -84,7 +78,6 @@ function App() {
     setFilters(prev => ({ ...prev, search: item }))
   }
 
-  // Función para manejar cambios de filtro (family, genus, order)
   const handleCategoryChange = (key, value) => {
     setFilters(prev => ({
       ...prev,
@@ -94,25 +87,31 @@ function App() {
 
   return (
     <>
-      <Header />
-      <ProductFilters
-        filters={filters}
-        handleSearch={handleSearch}
-        handleCategoryChange={handleCategoryChange}
-        familyValues={uniqueFamilies}
-        genusValues={uniqueGenus}
-        orderValues={uniqueOrders}
-      />
+      < Header />
+      <div className="main-container">
+        <div className='products-container'>
+          <ProductFilters
+            filters={filters}
+            handleSearch={handleSearch}
+            handleCategoryChange={handleCategoryChange}
+            familyValues={uniqueFamilies}
+            genusValues={uniqueGenus}
+            orderValues={uniqueOrders}
+          />
+          <ProductList
+            currentCards={currentCards}
+            filteredFruits={filteredFruits}
+            onSeeMore={handleSeeMore}
+            isLoading={isLoading}
+          />
+        </div>
 
-      <GeneralInformation
-        currentCardsFruits={filteredFruits.length > 0 ? filteredFruits.slice(0, currentCards) : []}
-      />
-      <ProductList
-        currentCards={currentCards}
-        filteredFruits={filteredFruits}
-        onSeeMore={handleSeeMore}
-        isLoading={isLoading}
-      />
+        <div className='info-container'>
+          <GeneralInformation
+            currentCardsFruits={filteredFruits.length > 0 ? filteredFruits.slice(0, currentCards) : []}
+          />
+        </div>
+      </div>
     </>
   )
 }
@@ -120,43 +119,3 @@ function App() {
 export default App
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// < Header />
-// <div className='aa'>
-//   <div>
-//     <ProductFilters
-//       filterProducts={filterProducts}
-//       handleSearch={handleSearch}
-//       handleSort={handleSort}
-//     />
-//     <ProductList
-//       currentCards={currentCards}
-//       fruits={filteredFruits}
-//       onSeeMore={handleSeeMore}
-//     />
-//   </div>
-
-//   <div>
-//     <GeneralInformation
-//       currentCardsFruits={filteredFruits.slice(0, currentCards)}
-//     />
-//   </div>
-// </div>

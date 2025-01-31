@@ -113,14 +113,10 @@
 @media screen and (min-width: 768px) {
     .card {
         margin-top: 30px;
-        width: 317px;
-        height: 600px;
+        width: 250px;
+        height: 510px;
         border-radius: 15px;
         box-shadow: 5px 10px 30px 0px #00000033;
-    }
-
-    .card-content {
-        padding: 24px;
     }
 
     .like-icon {
@@ -145,13 +141,13 @@
     .fruit {
         color: variables.$secondary;
         font-weight: 700;
-        font-size: 2.4rem;
+        font-size: 1.8rem;
     }
 
     .nutritions-title {
         color: variables.$secondary;
         font-weight: 700;
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
 
     .card img {
@@ -181,36 +177,32 @@
     }
 
     .info-labels p {
-        @include typography(1.6rem, 700, 00.02rem);
+        @include typography(1.3rem, 700, 00.02rem);
     }
 
     .info-values p {
-        @include typography(1.6rem, 400, 00.02rem);
+        @include typography(1.2rem, 400, 00.02rem);
     }
 
     .nutrition-labels p {
-        @include typography(1.6rem, 700, 00.02rem);
+        @include typography(1.3rem, 700, 00.02rem);
         text-align: left;
     }
 
     .nutrition-values p {
         text-align: right;
-        @include typography(1.6rem, 400, 0.02rem);
+        @include typography(1.2rem, 400, 0.02rem);
     }
 }
 
+
 @media screen and (min-width: 600px) and (max-width: 1024px) {
     .card {
-        margin-top: 20px;
-        width: 90%;
+        width: 95%;
         max-width: 400px;
         height: auto;
         border-radius: 15px;
         box-shadow: 5px 8px 28px 0px #00000030;
-    }
-
-    .card-content {
-        padding: 20px;
     }
 
     .like-icon {
@@ -228,11 +220,11 @@
     }
 
     .fruit {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
     .nutritions-title {
-        font-size: 1.6rem;
+        font-size: 1rem;
     }
 
     .card img {
@@ -241,11 +233,11 @@
 
     .info-labels p,
     .nutrition-labels p {
-        @include typography(1.4rem, 700, 0.02rem);
+        @include typography(0.8rem, 700, 0.02rem);
     }
 
     .info-values p,
     .nutrition-values p {
-        @include typography(1.4rem, 400, 0.02rem);
+        @include typography(0.8rem, 400, 0.02rem);
     }
 }

@@ -72,47 +72,42 @@ section {
 /// Tablets (600px - 1024px)
 @media screen and (min-width: 600px) and (max-width: 1024px) {
     section {
-        width: 60%;
-        padding: 20px 28px;
+        border-radius: 15px;
+        padding: 8px 12px;
     }
 
     .info .title {
-        font-size: 2rem;
+        font-size: 1.6rem;
         font-weight: 700;
     }
 
     .gen-info p:first-of-type {
-        @include typography(1.5rem, 700, 0.02rem);
+        @include typography(1.2rem, 700, 0.02rem);
     }
 
     .gen-info p:last-of-type {
-        @include typography(1.5rem, 400, 0.02rem);
+        @include typography(1.2rem, 400, 0.02rem);
         text-align: right;
     }
 
     .nutrition-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 700;
     }
 
     .nutri-info .labels p {
-        @include typography(1.5rem, 700, 0.02rem);
+        @include typography(1.2rem, 700, 0.02rem);
     }
 
     .nutri-info .values p {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         font-weight: 400;
         letter-spacing: 0.02em;
     }
 }
 
-// Desktop (a partir de 1024px)
+// Desktop 
 @media screen and (min-width: 1024px) {
-    section {
-        width: 48%;
-        padding: 24px 32px;
-    }
-
     .info .title {
         font-size: 2.4rem;
         font-weight: 700;
