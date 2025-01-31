@@ -1,0 +1,142 @@
+@use "../../styles/variables" as variables;
+
+@mixin typography($font-size, $font-weight, $letter-spacing) {
+    font-size: $font-size;
+    font-weight: $font-weight;
+    letter-spacing: $letter-spacing;
+}
+
+section {
+    width: 90%;
+    background: variables.$background;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: 16px 24px;
+}
+
+section {
+    .title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: variables.$secondary;
+    }
+
+}
+
+.gen-info {
+    display: flex;
+    justify-content: space-between;
+    color: variables.$text-secondary;
+
+    p:first-of-type {
+        @include typography(1.3rem, 700, 0.02rem);
+    }
+
+    p:last-of-type {
+        @include typography(1.3rem, 400, 0.02rem);
+        text-align: right;
+    }
+
+}
+
+.nutrition-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: variables.$secondary;
+}
+
+
+.nutri-info {
+    display: flex;
+    justify-content: space-between;
+
+    .labels p {
+        @include typography(1.3rem, 700, 0.02rem);
+        color: variables.$text-secondary;
+    }
+
+    .values p {
+        @include typography(1.3rem, 400, 0.02rem);
+        color: variables.$text-secondary;
+        text-align: right;
+    }
+}
+
+.loading-message {
+    font-size: 1.6rem;
+    color: #D7B46B;
+    text-align: center;
+    padding: 20px;
+}
+
+/// Tablets (600px - 1024px)
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    section {
+        width: 60%;
+        padding: 20px 28px;
+    }
+
+    .info .title {
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .gen-info p:first-of-type {
+        @include typography(1.5rem, 700, 0.02rem);
+    }
+
+    .gen-info p:last-of-type {
+        @include typography(1.5rem, 400, 0.02rem);
+        text-align: right;
+    }
+
+    .nutrition-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .nutri-info .labels p {
+        @include typography(1.5rem, 700, 0.02rem);
+    }
+
+    .nutri-info .values p {
+        font-size: 1.5rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+    }
+}
+
+// Desktop (a partir de 1024px)
+@media screen and (min-width: 1024px) {
+    section {
+        width: 48%;
+        padding: 24px 32px;
+    }
+
+    .info .title {
+        font-size: 2.4rem;
+        font-weight: 700;
+    }
+
+    .gen-info p:first-of-type {
+        @include typography(1.6rem, 700, 0.02rem);
+    }
+
+    .gen-info p:last-of-type {
+        @include typography(1.6rem, 400, 0.02rem);
+        text-align: right;
+    }
+
+    .nutrition-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    .nutri-info .labels p {
+        @include typography(1.6rem, 700, 0.02rem);
+    }
+
+    .nutri-info .values p {
+        @include typography(1.6rem, 400, 0.02rem);
+    }
+}
