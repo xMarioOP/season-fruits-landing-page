@@ -2,9 +2,6 @@
 
 This project is a web application developed with **React and Vite**, consuming the **Fruityvice API** to display information about different fruits. Local images for each fruit are included, with a fallback image in case a specific fruit image is unavailable.  
 
-## Live Demo
-
-You can view the live demo of the project at [this link](https://xMarioOP.github.io/season-fruits-landing-page/).
 
 ## Technologies Used  
 
