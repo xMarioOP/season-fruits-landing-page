@@ -1,0 +1,39 @@
+@use "../../styles/variables" as variables;
+
+//mobile
+header h1 {
+    color: variables.$primary;
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+header p {
+    color: variables.$secondary;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 3rem;
+}
+
+// Tablets (600px - 1024px)
+@media screen and (min-width: 600px) and (max-width: 1024px) {
+    header h1 {
+        font-size: 4.2rem;
+    }
+
+    header p {
+        font-size: 2rem;
+    }
+}
+
+// Desktop (a partir de 1024px)
+@media screen and (min-width: 1024px) {
+    header h1 {
+        font-size: 5rem;
+    }
+
+    header p {
+        font-size: 2.4rem;
+    }
+}
