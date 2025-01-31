@@ -36,6 +36,10 @@ This project is a web application developed with **React and Vite**, consuming t
  ┗ README.md
  ┗ .gitignore
 ```
+## Node.js and npm Versions
+
+- **Node.js**: v23.6.0
+- **npm**: v10.9.2
 
 ## Installation and Setup
 
