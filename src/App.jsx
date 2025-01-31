@@ -109,6 +109,7 @@ function App() {
         <div className='info-container'>
           <GeneralInformation
             currentCardsFruits={filteredFruits.length > 0 ? filteredFruits.slice(0, currentCards) : []}
+            isLoading={isLoading}
           />
         </div>
       </div>

@@ -66,8 +66,12 @@ section {
     font-size: 1.6rem;
     color: #D7B46B;
     text-align: center;
-    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 
 /// Tablets (600px - 1024px)
 @media screen and (min-width: 600px) and (max-width: 1024px) {

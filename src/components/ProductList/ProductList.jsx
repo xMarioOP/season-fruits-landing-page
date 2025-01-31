@@ -15,11 +15,6 @@ const ProductList = ({ filteredFruits, currentCards, onSeeMore, isLoading }) => 
                     <div className="loader-container"><div className="loader"></div></div>
                 )}
             </div>
-            <div>
-                {filteredFruits.length === 0 && !isLoading && (
-                    <div className="aa">No products available </div>
-                )}
-            </div>
             <div className="button-container">
                 {currentCards < filteredFruits.length && (
                     <button className="see-more btn btn-dark" onClick={onSeeMore}>
