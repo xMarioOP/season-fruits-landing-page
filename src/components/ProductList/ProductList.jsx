@@ -1,29 +1,27 @@
 import { Card } from "../Card/Card";
 import "./Styles.scss"
 
-const ProductList = ({ fruits, currentCards, onSeeMore }) => {
+const ProductList = ({ filteredFruits, currentCards, onSeeMore, isLoading }) => {
     return (
         <main>
             <div className="product-list">
-                {fruits && fruits.length > 0 ? (
-                    fruits.slice(0, currentCards).map((fruit) =>
+                {!isLoading ? (
+                    filteredFruits.slice(0, currentCards).map((fruit) =>
                         <Card
                             key={fruit.id}
                             fruit={fruit} />
                     )
                 ) : (
-                    <div className="loader-container">
-                        {fruits.length === 0 ? (
-                            <div className="error-message">No products found.</div>
-                        ) : (
-                            <div className="loader"></div>
-                        )}
-                    </div>
+                    <div className="loader-container"><div className="loader"></div></div>
                 )}
             </div>
-
+            <div>
+                {filteredFruits.length === 0 && !isLoading && (
+                    <div className="aa">No products available </div>
+                )}
+            </div>
             <div className="button-container">
-                {currentCards < fruits.length && (
+                {currentCards < filteredFruits.length && (
                     <button className="see-more btn btn-dark" onClick={onSeeMore}>
                         SEE MORE
                     </button>

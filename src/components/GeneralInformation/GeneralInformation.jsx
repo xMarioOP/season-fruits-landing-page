@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./Styles.scss"
 
 const GeneralInformation = ({ currentCardsFruits }) => {
-    
+
     const [nutrition, setNutrition] = useState({
         totalCalories: 0,
         totalFats: 0,
@@ -30,7 +30,7 @@ const GeneralInformation = ({ currentCardsFruits }) => {
     }, [currentCardsFruits])
 
     if (!currentCardsFruits || currentCardsFruits.length === 0) {
-        return <div className="loading-message">No products available or loading...</div>
+        return <div className="loading-message">No products available</div>
     }
 
     return (

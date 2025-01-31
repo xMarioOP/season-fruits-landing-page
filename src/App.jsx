@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import './App.scss'
 import { GeneralInformation } from './components/GeneralInformation/GeneralInformation'
 import { Header } from './components/Header/Header'
@@ -8,13 +8,17 @@ import { ProductList } from './components/ProductList/ProductList'
 function App() {
   const [fruits, setFruits] = useState([])
   const [currentCards, setCurrentCards] = useState(8)
-  const [filteredFruits, setFilteredFruits] = useState([])
-  const [sortOrder, setSortOrder] = useState('asc')
-
-  // console.log(fruits);
+  const [isLoading, setIsLoading] = useState(false)
+  const [filters, setFilters] = useState({
+    search: "",
+    family: "",
+    order: "asc",
+    genus: "",
+  })
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true)
       try {
         const response = await fetch("/api/fruit/all")
         if (!response.ok) {
@@ -22,79 +26,117 @@ function App() {
         }
         const data = await response.json();
         setFruits(data)
-        setFilteredFruits(data)
       } catch (error) {
         console.error("Error:", error)
       }
+      setIsLoading(false)
     }
 
     fetchData()
   }, [])
 
+  const getUniqueValues = (data, key) => {
+    return [...new Set(data.map(item => item[key]))]
+  };
+
+
+  const uniqueFamilies = useMemo(() => getUniqueValues(fruits, "family"), [fruits])
+  const uniqueGenus = useMemo(() => getUniqueValues(fruits, "genus"), [fruits])
+  const uniqueOrders = useMemo(() => getUniqueValues(fruits, "order"), [fruits])
+
+
+  // Calcular los frutos filtrados cada vez que cambian 'fruits' o 'filters'
+  const filteredFruits = useMemo(() => {
+    let filtered = [...fruits]
+
+    if (filters.search) {
+      filtered = filtered.filter(fruit =>
+        fruit.name.toLowerCase().includes(filters.search.toLowerCase())
+      )
+    }
+
+    if (filters.family) {
+      filtered = filtered.filter(fruit => fruit.family === filters.family)
+    }
+
+    if (filters.genus) {
+      filtered = filtered.filter(fruit => fruit.genus === filters.genus)
+    }
+
+    if (filters.order) {
+      filtered = filtered.sort((a, b) =>
+        filters.order === 'asc'
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name)
+      )
+    }
+
+    return filtered
+  }, [filters, fruits])
+
+
+
   const handleSeeMore = () => {
     setCurrentCards(prev => prev + 4)
   }
 
-
-  const filterProducts = (category) => {
-    if (!category) {
-      setFilteredFruits(fruits) // Mostrar todas las frutas si no se ha seleccionado ninguna categoría
-      return
-    }
-
-    const filtered = fruits.filter((fruit) => {
-      // Comprobamos si la propiedad seleccionada existe en el objeto fruta
-      // y si tiene un valor asignado
-      return fruit[category] && fruit[category].length > 0
-    })
-
-    // console.log("Filtered:", filtered) // Verifica el filtro
-    setFilteredFruits(filtered) // Actualiza el estado con las frutas filtradas
-  };
-
-
-
-
-
-
   const handleSearch = (item) => {
-    const filtered = fruits.filter((fruit) =>
-      fruit.name.toLowerCase().includes(item.toLowerCase())
-    )
-    setFilteredFruits(filtered)
+    setFilters(prev => ({ ...prev, search: item }))
   }
 
-  const handleSort = () => {
-    const sorted = [...filteredFruits].sort((a, b) =>
-      sortOrder === 'asc'
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name)
-    )
-    setFilteredFruits(sorted)
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')
+  // Función para manejar cambios de filtro (family, genus, order)
+  const handleCategoryChange = (key, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }))
   }
 
   return (
     <>
       <Header />
       <ProductFilters
-        filterProducts={filterProducts}
+        filters={filters}
         handleSearch={handleSearch}
-        handleSort={handleSort}
+        handleCategoryChange={handleCategoryChange}
+        familyValues={uniqueFamilies}
+        genusValues={uniqueGenus}
+        orderValues={uniqueOrders}
       />
+
       <GeneralInformation
         currentCardsFruits={filteredFruits.length > 0 ? filteredFruits.slice(0, currentCards) : []}
       />
       <ProductList
         currentCards={currentCards}
-        fruits={filteredFruits}
+        filteredFruits={filteredFruits}
         onSeeMore={handleSeeMore}
+        isLoading={isLoading}
       />
     </>
   )
 }
 
 export default App
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // < Header />

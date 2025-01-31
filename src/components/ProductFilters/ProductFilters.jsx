@@ -1,34 +1,50 @@
 import "./Styles.scss"
 
-const ProductFilters = ({ filterProducts, handleSearch, handleSort }) => {
-    const handleCategoryChange = (e) => {
-        const category = e.target.value
-        console.log("Categoría seleccionada:", category);
-        filterProducts(category)
-    }
+const ProductFilters = ({
+    filters,
+    familyValues,
+    genusValues,
+    orderValues,
+    handleSearch,
+    handleCategoryChange
+}) => {
 
     const handleSearchChange = (e) => {
-        handleSearch(e.target.value)
-    }
+        handleSearch(e.target.value);
+    };
 
     const handleSortChange = () => {
-        handleSort()
+        const newOrder = filters.order === "asc" ? "desc" : "asc";
+        handleCategoryChange("order", newOrder);
     }
+
+    const renderFilterOptions = (values, key) => {
+        return values.map((item, index) => (
+            <option key={index} value={item}>
+                {item}
+            </option>
+        ));
+    };
 
     return (
         <aside>
             <div className="filters-container">
                 <div className="filter-container">
-                    <select
-                        className="form-select"
-                        aria-label="Filter by category"
-                        defaultValue=""
-                        onChange={handleCategoryChange}
-                    >
-                        <option value="" disabled>Filter by:</option>
-                        <option value="family">Family</option>
-                        <option value="order">Order</option>
-                        <option value="genus">Genus</option>
+                    <select onChange={(e) => handleCategoryChange("family", e.target.value)}>
+                        <option value="">Filter by family</option>
+                        {renderFilterOptions(familyValues, "family")}
+                    </select>
+                </div>
+                <div className="filter-container">
+                    <select onChange={(e) => handleCategoryChange("genus", e.target.value)}>
+                        <option value="">Filter by genus</option>
+                        {renderFilterOptions(genusValues, "genus")}
+                    </select>
+                </div>
+                <div className="filter-container">
+                    <select onChange={(e) => handleCategoryChange("order", e.target.value)}>
+                        <option value="">Filter by order</option>
+                        {renderFilterOptions(orderValues, "order")}
                     </select>
                 </div>
 
@@ -39,13 +55,17 @@ const ProductFilters = ({ filterProducts, handleSearch, handleSort }) => {
                         className="form-control"
                         aria-describedby="searchHelp"
                         placeholder="Search"
+                        value={filters.search}
                         onChange={handleSearchChange}
                     />
                     <i className="bi bi-search"></i>
                 </div>
 
+
                 <div className="btn-container">
-                    <button onClick={handleSortChange}>Order A-Z</button>
+                    <button onClick={handleSortChange}>
+                        Order {filters.order === "asc" ? "A-Z" : "Z-A"}
+                    </button>
                 </div>
             </div>
         </aside>

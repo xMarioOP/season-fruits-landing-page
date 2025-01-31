@@ -240,8 +240,11 @@
     }
 
     .info-labels p,
+    .nutrition-labels p {
+        @include typography(1.4rem, 700, 0.02rem);
+    }
+
     .info-values p,
-    .nutrition-labels p,
     .nutrition-values p {
         @include typography(1.4rem, 400, 0.02rem);
     }
